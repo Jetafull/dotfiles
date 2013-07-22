@@ -20,6 +20,20 @@ Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'vim-scripts/Railscasts-Theme-GUIand256color'
 Bundle 'vim-scripts/surround.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'guileen/vim-node'
+Bundle 'myhere/vim-nodejs-complete'
+Bundle 'mileszs/ack.vim'
+Bundle 'goatslacker/mango.vim'
+Bundle 'mattn/zencoding-vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'matthias-guenther/hammer.vim'
+Bundle 'hallettj/jslint.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'Shougo/vimshell.vim'
+Bundle 'goatslacker/mango.vim'
+Bundle 'marcus/vim-mustang'
 
 " from vim-scripts repos
 Bundle 'git-commit'
@@ -42,16 +56,16 @@ set hidden                    " 変種中のファイルを保存しないで他
 set history=100               " コマンド・検索パターンを履歴に残す
 set nrformats=alpha,octal,hex " <C-A>,<C-X>で加減算を可能にする
 
-
 " ------------------------------
 " Look And Feel Settings
 " ------------------------------
+set background=dark
 set number             " 行番号を表示
 set ruler              " ルーラーを表示
 set title              " タイトルを表示
 set t_Co=256           " 色数指定(256)
 syntax on              " 強調表示ON
-colorscheme railscasts " カラースキーマを設定
+colorscheme mustang " カラースキーマを設定
 set ambiwidth=double   " ☆などの記号を正しく表示する
 set cmdheight=1        " コマンドラインに使われるスクリーン上の行数
 set showcmd            " コマンドをステータスライン(右側)に表示
