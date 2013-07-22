@@ -1,1 +1,13 @@
+PS1='\W \h$ '
 
+export coursera=/Users/jiangtaofu/Dropbox/Udacity/coursera
+export cs184=~/Dropbox/Udacity/coursera/Stanford/cs184_startup_engineering
+
+alias qt='ipython qtconsole --pylab=inline'
+alias ipy='ipython --pylab=auto'
+alias note='ipython notebook --pylab=inline'
+alias mvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
+alias cl="clear"
+alias scipy='source ~/Dropbox/virtualenv/scipy/bin/activate'
+alias firefox='open -a firefox'
+alias texshop='open -a texshop'
