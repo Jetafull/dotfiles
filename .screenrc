@@ -1,130 +1,88 @@
-# GNU Screen configuration file
-# Balaji S. Srinivasan <balajis@stanford.edu>
-#
-# Notes
-# -----
-# 1. Modified to work with Emacs: C-t is the action command, not C-a. 
-# 2. To change the colors of the hardstatus line, change this line: 
-#       sorendition "+b +kG"  
-#    Example: blue (+b) highlight with black text (k) on a green background (G)
-#    Example: sorendition "+r +kG"  is red highlighting with black text on a green background
-#
-#  Modification of original files by Sven Guckes, Sarunas Vancevicius, and Mike Perry
-#  Sarunas Vancevicius original: http://www.redbrick.dcu.ie/~svan/configs/screenrc
-#  Mike Perry original:  http://fscked.org/writings/225notes/unix/.screenrc
+# 現在の背景色で消去する
+defbce "on"
+# 太字には明るい色を使う(^[はvimでC-v ESCで入力する)
+attrcolor b "^["
+# 256色表示設定
+term xterm-256color
+# スクロールバッファは最大10000行にする
+defscrollback 10000
+# 別画面サポート。Vimやless使うときに便利
+altscreen on
+# コマンドキーをCtrl+Zにする
+#escape ^Zz
+# ビジュアルベル（画面全体が点滅する）を切る
+vbell off
+# ベルの時はメッセージ（＋音）を出す(^GはvimでC-v C-gで入力する)
+#bell_msg "Bell in window %^G"
+# 端末が落ちたら自動的にデタッチする
+autodetach on
+# 新しいウィンドウを生成するときのコマンド
+shell $SHELL
+# スタートアップメッセージを消す
+startup_message off
+# ログファイルのファイル名
+logfile "$HOME/.screen/screen-%Y%m%d-%n.log"
+# 標準でログをとる
+deflog on
+# ウィンドウのタイトル指定
+shelltitle '$ |bash'
+#メッセージを表示する時間(秒単位)
+msgwait 5
+#次のメッセージを表示するまでの遅延時間(秒単位)
+msgminwait 1
 
-## -----------------------------------------------------------------------------------------
-## -- 1) Set variables and keybindings for emacs compatibility (remapping Ctrl-A to Ctrl-T)
-## -----------------------------------------------------------------------------------------
-markkeys "h=^B:l=^F:$=^E"             # emacs style keybindings during copy mode movement in screen
-autodetach             on             # default: on
-crlf                  off             # default: off
-#deflogin              off            # default: on
-hardcopy_append       on              # default: off
-startup_message       off             # default: on
-vbell                 off             # default: ???
-escape	"^Tt"                         # ctrl-A default interferes with emacs keybindings for terminal
-defutf8 on                            # unicode by default
-defscrollback         10000           # default: 100
-silencewait           15              # default: 30
-activity              "activity in %n (%t) [%w:%s]~"
-bell                  "bell     in %n (%t) [%w:%s]~"
+# hardstatus and caption
+hardstatus on
+hardstatus alwayslastline '%{= .b}%H%{-} %L=%-w%45L>%{=u b.}%n %t%{-}%+w %-17<%=%m/%d %02c:%s'
+caption always '%?%F%{= bw}%:%{= wk}%?%2n%f%07=%t%='
+sorendition '+r .b'
 
-# Change keybindings for convenience
-bind ^Q mapdefault
-bind q mapdefault 
-bind k
-bind ^k
-bind .
-bind ^\
-bind \\
+# Prefixキーの設定
+escape ^Tt
+
+#ウィンドウ操作モード(^t w でウィンドウを連続的に操作できるようになる)
+bind w eval 'echo "Operate window"' 'command -c operate'
+bind -c operate ^]  command
+bind -c operate j eval 'focus down' 'command -c operate'
+bind -c operate k eval 'focus up' 'command -c operate'
+bind -c operate h eval 'focus left' 'command -c operate'
+bind -c operate l eval 'focus right' 'command -c operate'
+bind -c operate t eval 'focus top' 'command -c operate'
+bind -c operate b eval 'focus bottom' 'command -c operate'
+bind -c operate + eval 'resize -v +1' 'command -c operate'
+bind -c operate - eval 'resize -v -1' 'command -c operate'
+bind -c operate > eval 'resize -h +1' 'command -c operate'
+bind -c operate < eval 'resize -h -1' 'command -c operate'
+bind -c operate = eval 'resize -v =' 'command -c operate'
+bind -c operate + eval 'resize -h =' 'command -c operate'
+bind -c operate s eval 'split' 'command -c operate'
+bind -c operate c eval 'screen' 'command -c operate'
+bind -c operate x eval 'remove' 'command -c operate'
+bind -c operate v eval 'split -v' 'command -c operate'
+bind -c operate 0 eval 'select 0' 'command -c operate'
+bind -c operate 1 eval 'select 1' 'command -c operate'
+bind -c operate 2 eval 'select 2' 'command -c operate'
+bind -c operate 3 eval 'select 3' 'command -c operate'
+bind -c operate 4 eval 'select 4' 'command -c operate'
+bind -c operate 5 eval 'select 5' 'command -c operate'
+bind -c operate 6 eval 'select 6' 'command -c operate'
+bind -c operate 7 eval 'select 7' 'command -c operate'
+bind -c operate 8 eval 'select 8' 'command -c operate'
+bind -c operate 9 eval 'select 9' 'command -c operate'
+
+#通常の操作キー eval 'hoge' になっているのに意味はない
+bind x remove
+bind j eval 'focus down'
+bind k eval 'focus up'
+bind h eval 'focus left'
+bind l eval 'focus right'
+bind + eval 'resize -v +1'
+bind - eval 'resize -v -1'
+bind > eval 'resize -h +1'
+bind < eval 'resize -h -1'
+bind v eval 'split -v' focus screen
+bind s eval 'split' focus screen
+bind = eval 'resize -v ='
+bind + eval 'resize -h +'
+#^t h との誤爆を防ぐために^t ^hは無効にする
 bind ^h
-bind h
-bind ''
-bind 'L'
-#bind 'I' login on
-#bind 'O' login off
-bind '}' history
-bind ^a
-
-# aterm bindings                                                          
-bindkey "Oc" next
-bindkey "Od" prev
-
-# Emacs compatibility
-# Easy switching of windows without p/n confusion, as ctrl-p and ctrl-n
-# are frequently used in emacs but u/j are not...
-bind 'u' prev
-bind ^U prev
-bind 'j' next
-bind ^J next
-
-# Emacs compatibility for screen movement (if you use subscreen regions)
-# Using tab to move around regions gets annoying.  These help.
-bind ^P focus up
-bind 'p' focus up
-bind ^N focus down
-bind 'n' focus down
-bind ^F focus top
-bind 'f' focus top
-bind ^B focus bottom
-bind 'b' focus bottom
-
-## -------------------------------------------------------------------------------------------------
-## -- 2) Hardstatus line (aka navigation bar at bottom) 
-##       and sorendition (aka color scheme for navigation bar)
-## -------------------------------------------------------------------------------------------------
-
-# 2.1) sorendition = color scheme
-#      Set the colors for the "messages" and "text marking"
-#      Example: "+b kG" = blue screen, black text, green background. Change
-#      to "+b kR" and so on to distinguish machines.
-sorendition "+b kG"   
-
-# 2.2) hardstatus = navigation bar @ bottom
-hardstatus alwayslastline "%H %-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"  
-
-# 2.3) Autoload two screen tabs for emacs/bash.
-screen -t emacs 0
-screen -t bash 1
-
-# 2.4) Description of the keywords used in hardstatus
-# caption always "%?%F%{-b bc}%:%{-b bb}%?%C|%D|%M %d|%H%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"
-# 
-# Anything I don't describe is treated literally.
-# 
-# %?          - Start of a conditional statement.
-#  %F         - Use this part of the statement if the window has focus (i.e. it
-#               is the only window or the currently active one).
-#  %{-b bc}   - Turn off bold, blue foreground, cyan background.
-# %:          - else
-#  %{-b bb}   - Turn off bold, blue foreground, blue background (this obscures
-#               the text on non-focused windows and just gives a blue line).
-# %?          - End conditional statement.
-#  %C         - time (hh:mm, leading space) in 12 hour format
-#  %D         - Three-letter day-of-week appreviation
-#  %M         - Three-letter month appreviation
-#  %d         - Day of the month
-#  %H         - hostname
-#  %?         - Start of conditional statement.
-#   %F        - Use this part of the statement if the window has focus.
-#   %{+u wb}  - underlined, white foreground, blue background
-#  %?         - End conditional (if not focused, text remaind blue on blue).
-#    %L=      - truncation/padding point.  With the 'L' qualifier, basically
-#               just acts as a reference point.  Further truncation/padding is
-#               done relative to here, not the beginning of the string
-#    %-Lw     - window list up to but not including the current window (-),
-#               show window flags (L)
-#    %45>     - truncation/padding marker; place this point about 45% of the
-#               way into the display area (45)
-#    %{+b by} - add bold (still underlined from before), blue foreground,
-#               yellow background
-#      %n     - number of the current window
-#      %f     - flags for current window
-#      %t     - title of current window
-#    %{-}     - undo last color change (so now we're back to underlined white
-#               on blue)  (technically, this is a pop; a second invocation
-#               would drop things back to unadorned blue on cyan)
-#    %+Lw     - window list from the next window on (-), show window flags (L)
-#    %-0<     - truncation/padding point.  Place this point zero spaces (0)
-#               from the right margin (-).
