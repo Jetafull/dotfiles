@@ -11,3 +11,4 @@ alias cl="clear"
 alias scipy='source ~/Dropbox/virtualenv/scipy/bin/activate'
 alias firefox='open -a firefox'
 alias texshop='open -a texshop'
+alias chrome="open -a '/Applications/Google Chrome.app'"
