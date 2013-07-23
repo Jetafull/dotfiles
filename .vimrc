@@ -31,9 +31,9 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'matthias-guenther/hammer.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'Shougo/vimshell.vim'
 Bundle 'goatslacker/mango.vim'
 Bundle 'marcus/vim-mustang'
+Bundle 'msanders/snipmate.vim'
 
 " from vim-scripts repos
 Bundle 'git-commit'
