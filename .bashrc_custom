@@ -13,3 +13,4 @@ alias firefox='open -a firefox'
 alias texshop='open -a texshop'
 alias chrome="open -a '/Applications/Google Chrome.app'"
 alias stat405="cd ~/Dropbox/Books/Important\ Books/Computer\ Science/R/hadley_wickham/stat405/"
+alias rstudio="open -a rstudio"
